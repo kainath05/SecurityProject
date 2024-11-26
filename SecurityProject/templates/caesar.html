@@ -3,27 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <title>Caesar Cipher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            background: #fff;
+            padding: 30px 50px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #4682b4;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #4682b4;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #5c8ca4;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            word-wrap: break-word;
+        }
+    </style>
 </head>
 <body>
-    <h1>Caesar Cipher</h1>
-    <form method="post">
-        <label for="text">Text:</label>
-        <input type="text" id="text" name="text" required><br><br>
-        <label for="shift">Shift (number):</label>
-        <input type="number" id="shift" name="shift" required><br><br>
-        <label for="operation">Operation:</label>
-        <select id="operation" name="operation" required>
-            <option value="encrypt">Encrypt</option>
-            <option value="decrypt">Decrypt</option>
-        </select><br><br>
-        <input type="submit" value="Submit">
-    </form>
-    {% if result_text %}
-    <h2>Result</h2>
-    <p>Original Text: {{ text }}</p>
-    <p>Shift: {{ shift }}</p>
-    <p>Operation: {{ operation }}</p>
-    <p>Result Text: {{ result_text }}</p>
-    {% endif %}
+    <div class="container">
+        <h1>Caesar Cipher</h1>
+        <form method="post">
+            <label for="text">Text:</label>
+            <input type="text" id="text" name="text" required><br>
+            <label for="shift">Shift (number):</label>
+            <input type="number" id="shift" name="shift" required><br>
+            <label for="operation">Operation:</label>
+            <select id="operation" name="operation" required>
+                <option value="Encrypt">Encrypt</option>
+                <option value="Decrypt">Decrypt</option>
+            </select><br>
+            <input type="submit" value="Submit">
+        </form>
+        {% if result_text %}
+        <h2>Result</h2>
+        <p>Original Text: {{ text }}</p>
+        <p>Shift: {{ shift }}</p>
+        <p>Operation: {{ operation }}</p>
+        <p>Result Text: {{ result_text }}</p>
+        {% endif %}
+    </div>
 </body>
 </html>

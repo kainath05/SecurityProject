@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request
 from caesar_cipher import caesar_cipher_encrypt, caesar_cipher_decrypt
 from monoalphabetic_cipher import generate_key, monoalphabetic_cipher_encrypt, monoalphabetic_cipher_decrypt
+from vigenère_cipher import vigenere_cipher_encrypt, vigenere_cipher_decrypt
 
 app = Flask(__name__)
 
-# Store the key for the session
+#  store the key for the session
 key = generate_key()
 
 
@@ -39,6 +40,20 @@ def monoalphabetic():
             result_text = monoalphabetic_cipher_decrypt(text, key)
         return render_template('monoalphabetic.html', result_text=result_text, text=text, key=key, operation=operation)
     return render_template('monoalphabetic.html', key=key)
+
+
+@app.route('/vigenere', methods=['GET', 'POST'])
+def vigenere():
+    if request.method == 'POST':
+        text = request.form['text']
+        key = request.form['key']
+        operation = request.form['operation']
+        if operation == 'encrypt':
+            result_text = vigenere_cipher_encrypt(text, key)
+        elif operation == 'decrypt':
+            result_text = vigenere_cipher_decrypt(text, key)
+        return render_template('vigenere.html', result_text=result_text, text=text, key=key, operation=operation)
+    return render_template('vigenere.html')
 
 
 if __name__ == '__main__':
