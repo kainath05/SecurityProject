@@ -20,9 +20,9 @@ def caesar():
         text = request.form['text']
         shift = int(request.form['shift'])
         operation = request.form['operation']
-        if operation == 'encrypt':
+        if operation == 'Encrypt':
             result_text = caesar_cipher_encrypt(text, shift)
-        elif operation == 'decrypt':
+        elif operation == 'Decrypt':
             result_text = caesar_cipher_decrypt(text, shift)
         return render_template('caesar.html', result_text=result_text, text=text, shift=shift, operation=operation)
     return render_template('caesar.html')
@@ -34,9 +34,9 @@ def monoalphabetic():
     if request.method == 'POST':
         text = request.form['text']
         operation = request.form['operation']
-        if operation == 'encrypt':
+        if operation == 'Encrypt':
             result_text = monoalphabetic_cipher_encrypt(text, key)
-        elif operation == 'decrypt':
+        elif operation == 'Decrypt':
             result_text = monoalphabetic_cipher_decrypt(text, key)
         return render_template('monoalphabetic.html', result_text=result_text, text=text, key=key, operation=operation)
     return render_template('monoalphabetic.html', key=key)
@@ -48,9 +48,9 @@ def vigenere():
         text = request.form['text']
         key = request.form['key']
         operation = request.form['operation']
-        if operation == 'encrypt':
+        if operation == 'Encrypt':
             result_text = vigenere_cipher_encrypt(text, key)
-        elif operation == 'decrypt':
+        elif operation == 'Decrypt':
             result_text = vigenere_cipher_decrypt(text, key)
         return render_template('vigenere.html', result_text=result_text, text=text, key=key, operation=operation)
     return render_template('vigenere.html')
