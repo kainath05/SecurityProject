@@ -3,6 +3,7 @@ from caesar_cipher import caesar_cipher_encrypt, caesar_cipher_decrypt
 from monoalphabetic_cipher import generate_key, monoalphabetic_cipher_encrypt, monoalphabetic_cipher_decrypt
 from vigenère_cipher import vigenere_cipher_encrypt, vigenere_cipher_decrypt
 from block_cipher import block_encrypt, block_decrypt
+from transposition_cipher import encrypt_transposition, decrypt_transposition
 
 app = Flask(__name__)
 
@@ -74,10 +75,12 @@ def block():
             key = key.ljust(block_size, b'\0')  # Pad with null bytes
 
         if operation == "Encrypt":
-            result_text = block_encrypt(text, key, block_size)
+            ciphertext = block_encrypt(text, key, block_size)
+            result_text = ciphertext.hex()  # Convert to hex for display
         elif operation == "Decrypt":
-            result_text = block_decrypt(text, key, block_size)
-        result_text = result_text.decode("utf-8", errors="ignore")
+            ciphertext = bytes.fromhex(request.form["text"])  # Decode from hex
+            result_text = block_decrypt(ciphertext, key, block_size).decode("utf-8", errors="replace")
+
 
     return render_template(
         "block.html",
@@ -86,6 +89,19 @@ def block():
         operation=request.form.get("operation", ""),
         text=request.form.get("text", "")
     )
+
+@app.route('/transposition', methods=['GET', 'POST'])
+def transposition():
+    global key
+    if request.method == 'POST':
+        text = request.form['text']
+        operation = request.form['operation']
+        if operation == 'Encrypt':
+            result_text = encrypt_transposition(text, key)
+        elif operation == 'Decrypt':
+            result_text = decrypt_transposition(text, key)
+        return render_template('transposition.html', result_text=result_text, text=text, key=key, operation=operation)
+    return render_template('transposition.html', key=key)
 
 
 

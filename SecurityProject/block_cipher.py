@@ -1,9 +1,9 @@
 def block_encrypt(plaintext: bytes, key: bytes, block_size: int) -> bytes:
-    # Padding directly in the encrypt method
+    # Add padding
     padding_length = block_size - (len(plaintext) % block_size)
     padded_plaintext = plaintext + bytes([padding_length] * padding_length)
 
-    # XOR operation directly in the encrypt method
+    # XOR encryption
     ciphertext = b""
     for i in range(0, len(padded_plaintext), block_size):
         block = padded_plaintext[i:i + block_size]
@@ -12,16 +12,20 @@ def block_encrypt(plaintext: bytes, key: bytes, block_size: int) -> bytes:
 
     return ciphertext
 
+
 def block_decrypt(ciphertext: bytes, key: bytes, block_size: int) -> bytes:
-    # XOR operation directly in the decrypt method
+    # XOR decryption
     plaintext = b""
     for i in range(0, len(ciphertext), block_size):
         block = ciphertext[i:i + block_size]
         xor_result = bytes(a ^ b for a, b in zip(block, key))
         plaintext += xor_result
 
-    # Unpadding directly in the decrypt method
-    padding_length = plaintext[-1]
+    # Validate and remove padding
+    padding_length = ap[-1]
+    if padding_length < 1 or padding_length > block_size:
+        raise ValueError("Invalid padding detected.")
     unpadded_plaintext = plaintext[:-padding_length]
 
     return unpadded_plaintext
+
