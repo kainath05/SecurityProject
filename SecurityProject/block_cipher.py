@@ -22,7 +22,7 @@ def block_decrypt(ciphertext: bytes, key: bytes, block_size: int) -> bytes:
         plaintext += xor_result
 
     # Validate and remove padding
-    padding_length = ap[-1]
+    padding_length = plaintext[-1]
     if padding_length < 1 or padding_length > block_size:
         raise ValueError("Invalid padding detected.")
     unpadded_plaintext = plaintext[:-padding_length]
