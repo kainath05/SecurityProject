@@ -92,19 +92,42 @@ def block():
 
 @app.route('/transposition', methods=['GET', 'POST'])
 def transposition():
-    global key
+    result_text = None
+    text = ""
+    key = ""
+    operation = ""
+
     if request.method == 'POST':
         text = request.form['text']
+        key = request.form['key']  # Get the key from the form
         operation = request.form['operation']
+
+        # Ensure key is valid (e.g., contains only digits or letters, depending on your implementation)
+        if not key.isdigit():
+            return render_template(
+                'transposition.html',
+                result_text="Key must be numeric (e.g., 3214).",
+                text=text,
+                key=key,
+                operation=operation,
+            )
+
         if operation == 'Encrypt':
             result_text = encrypt_transposition(text, key)
         elif operation == 'Decrypt':
             result_text = decrypt_transposition(text, key)
-        return render_template('transposition.html', result_text=result_text, text=text, key=key, operation=operation)
-    return render_template('transposition.html', key=key)
+
+    return render_template(
+        'transposition.html',
+        result_text=result_text,
+        text=text,
+        key=key,
+        operation=operation
+    )
 
 
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='127.0.0.1', port=5000)
+

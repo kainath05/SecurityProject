@@ -80,13 +80,18 @@
         <form method="post">
             <label for="text">Text:</label>
             <input type="text" id="text" name="text" required><br>
+        
+            <label for="key">Key:</label>
+            <input type="text" id="key" name="key" placeholder="Enter your key (more than one digit)" required><br>
+        
             <label for="operation">Operation:</label>
             <select id="operation" name="operation" required>
                 <option value="Encrypt">Encrypt</option>
                 <option value="Decrypt">Decrypt</option>
             </select><br>
+        
             <input type="submit" value="Submit">
-        </form>
+        </form>        
         {% if result_text %}
         <h2>Result</h2>
         <p>Original Text: {{ text }}</p>

@@ -51,3 +51,4 @@ def decrypt_transposition(ciphertext, key):
             if row < len(original_order[col]):
                 plaintext += original_order[col][row]
     
+    return plaintext
