@@ -102,16 +102,6 @@ def transposition():
         key = request.form['key']  # Get the key from the form
         operation = request.form['operation']
 
-        # Ensure key is valid (e.g., contains only digits or letters, depending on your implementation)
-        if not key.isdigit():
-            return render_template(
-                'transposition.html',
-                result_text="Key must be numeric (e.g., 3214).",
-                text=text,
-                key=key,
-                operation=operation,
-            )
-
         if operation == 'Encrypt':
             result_text = encrypt_transposition(text, key)
         elif operation == 'Decrypt':

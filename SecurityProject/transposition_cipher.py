@@ -21,6 +21,7 @@ def encrypt_transposition(plaintext, key):
     
     return ciphertext
 
+
 def decrypt_transposition(ciphertext, key):
     # Determine the number of columns
     num_columns = len(key)
@@ -41,14 +42,15 @@ def decrypt_transposition(ciphertext, key):
         columns.append(ciphertext[start:start+length])
         start += length
     
-    # Rearrange columns to the original order
-    original_order = [columns[sorted_key.index((char, idx))] for char, idx in zip(key, range(len(key)))]
+    # Rebuild the original grid based on the unsorted key
+    unsorted_key = sorted(range(len(key)), key=lambda idx: key[idx])
+    original_columns = [columns[idx] for idx in unsorted_key]
     
     # Rebuild the plaintext by reading row by row
     plaintext = ""
     for row in range(num_rows + (1 if remainder > 0 else 0)):
         for col in range(num_columns):
-            if row < len(original_order[col]):
-                plaintext += original_order[col][row]
+            if row < len(original_columns[col]):
+                plaintext += original_columns[col][row]
     
     return plaintext
