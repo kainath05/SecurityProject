@@ -57,6 +57,7 @@ def vigenere():
         return render_template('vigenere.html', result_text=result_text, text=text, key=key, operation=operation)
     return render_template('vigenere.html')
 
+
 @app.route("/block", methods=["GET", "POST"])
 def block():
     result_text = None
@@ -81,7 +82,6 @@ def block():
             ciphertext = bytes.fromhex(request.form["text"])  # Decode from hex
             result_text = block_decrypt(ciphertext, key, block_size).decode("utf-8", errors="replace")
 
-
     return render_template(
         "block.html",
         result_text=result_text,
@@ -89,6 +89,7 @@ def block():
         operation=request.form.get("operation", ""),
         text=request.form.get("text", "")
     )
+
 
 @app.route('/transposition', methods=['GET', 'POST'])
 def transposition():
@@ -116,8 +117,5 @@ def transposition():
     )
 
 
-
-
 if __name__ == '__main__':
     app.run(debug=True, host='127.0.0.1', port=5000)
-

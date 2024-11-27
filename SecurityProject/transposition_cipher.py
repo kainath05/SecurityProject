@@ -23,14 +23,11 @@ def encrypt_transposition(plaintext, key):
 
 
 def decrypt_transposition(ciphertext, key):
-    # Determine the number of columns
     num_columns = len(key)
-    
-    # Determine the number of rows
+
     num_rows = len(ciphertext) // num_columns
     remainder = len(ciphertext) % num_columns
-    
-    # Calculate the column lengths
+
     column_lengths = [num_rows + (1 if col < remainder else 0) for col in range(num_columns)]
     
     # Split the ciphertext into columns based on key order
