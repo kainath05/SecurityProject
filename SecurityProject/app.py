@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request
+
+from bop_it_cipher import bop_it_cipher_encrypt, bop_it_cipher_decrypt
 from caesar_cipher import caesar_cipher_encrypt, caesar_cipher_decrypt
 from monoalphabetic_cipher import generate_key, monoalphabetic_cipher_encrypt, monoalphabetic_cipher_decrypt
 from vigenère_cipher import vigenere_cipher_encrypt, vigenere_cipher_decrypt
@@ -115,6 +117,23 @@ def transposition():
         key=key,
         operation=operation
     )
+
+
+@app.route('/bop_it', methods=['GET', 'POST'])
+def bob_it():
+    if request.method == 'POST':
+        text = request.form['text']
+        twist_count = int(request.form['twist_count'])
+        pull_count = int(request.form['pull_count'])
+        bop_count = int(request.form['bop_count'])
+        operation = request.form['operation']
+        if operation == 'Encrypt':
+            result_text = bop_it_cipher_encrypt(text, twist_count, pull_count, bop_count)
+        elif operation == 'Decrypt':
+            result_text = bop_it_cipher_decrypt(text, twist_count, pull_count, bop_count)
+        return render_template('bop_it.html', result_text=result_text, text=text, twist_count=twist_count,
+                               pull_count=pull_count, bop_count=bop_count, operation=operation)
+    return render_template('bop_it.html')
 
 
 if __name__ == '__main__':
