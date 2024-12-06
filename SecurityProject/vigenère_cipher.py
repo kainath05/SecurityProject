@@ -6,7 +6,7 @@ def vigenere_cipher_encrypt(msg, key):
     for i in range(len(msg)):
         char = msg[i]
         if char.isupper():
-            encrypted_char = chr((ord(char) + ord(key[i % key_length]) - 2 * ord('A')) % 26 + ord('A')) # subtract since it's decryption
+            encrypted_char = chr((ord(char) + ord(key[i % key_length]) - 2 * ord('A')) % 26 + ord('A'))
         elif char.islower():
             encrypted_char = chr((ord(char) + ord(key[i % key_length]) - 2 * ord('a')) % 26 + ord('a'))
         else:

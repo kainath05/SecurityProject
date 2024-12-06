@@ -1,8 +1,8 @@
-def block_encrypt(plaintext: bytes, key: bytes, block_size: int, rounds: int =12) -> bytes:
+def block_encrypt(plaintext: bytes, key: bytes, block_size: int, rounds: int = 12) -> bytes:
     # Padding
     padding_length = block_size - (len(plaintext) % block_size)
     padded_plaintext = plaintext + bytes([padding_length] * padding_length)
-    
+
     ciphertext = padded_plaintext
     for _ in range(rounds):
         temp_ciphertext = b""
@@ -13,6 +13,7 @@ def block_encrypt(plaintext: bytes, key: bytes, block_size: int, rounds: int =12
         ciphertext = temp_ciphertext
     return ciphertext
 
+
 def block_decrypt(ciphertext: bytes, key: bytes, block_size: int, rounds: int = 12) -> bytes:
     plaintext = ciphertext
     for _ in range(rounds):
@@ -22,7 +23,7 @@ def block_decrypt(ciphertext: bytes, key: bytes, block_size: int, rounds: int = 
             xor_result = bytes(a ^ b for a, b in zip(block, key))
             temp_plaintext += xor_result
         plaintext = temp_plaintext
-    
+
     # Unpadding
     padding_length = plaintext[-1]
     unpadded_plaintext = plaintext[:-padding_length]
